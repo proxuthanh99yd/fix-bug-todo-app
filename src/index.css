@@ -1,0 +1,112 @@
+:root {
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	max-width: 70%;
+	margin: 10px auto;
+}
+/* Include the padding and border in an element's total width and height */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Style the header */
+header {
+	background-color: darkslateblue;
+	padding: 30px 40px;
+	color: white;
+	text-align: center;
+}
+
+/* Clear floats after the header */
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Style the input */
+header input {
+	margin: 0;
+	border: none;
+	border-radius: 0;
+	width: 80%;
+	padding: 10px;
+	float: left;
+	font-size: 20px;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+header h2 {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+/* Style the "Add" button */
+header .addBtn {
+    width: 20%;
+    float: left;
+	padding: 10px;
+	background: #d9d9d9;
+	color: #555;
+	text-align: center;
+	font: 18px Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	cursor: pointer;
+	transition: 0.3s;
+    border: 1px solid white;
+}
+
+header .addBtn:hover {
+	background-color: darkslateblue;
+    color: white;
+}
+
+/* Style the list items */
+ul li {
+    display: flex;
+    justify-content: space-between;
+	list-style-type: none;
+	cursor: pointer;
+	position: relative;
+	padding: 12px 8px 12px 40px;
+	background: #eee;
+	font-size: 18px;
+	transition: 0.2s;
+
+	/* make the list items unselectable */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+	background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+	background: #ddd;
+}
+
+ul li span {
+    font-size: 22px;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li span.checked {
+	text-decoration: line-through;
+    color: #555;
+}
+
+ul li span .fa-pen-to-square{
+    color: darkblue;
+    padding: 10px 20px;
+}
+ul li span .fa-trash{
+    color: brown;
+    padding: 10px 20px;
+}
