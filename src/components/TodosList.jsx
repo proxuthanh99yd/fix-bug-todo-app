@@ -1,47 +1,17 @@
-import { useContext, useEffect } from "react";
-import TodoContext from "../store/TodoContext";
-import {
-    deleteTodoItem,
-    getTodosList,
-    setTodoInput,
-    toggleTodoItem,
-} from "../store/actions";
+import { useTodo } from "../store/TodoProvider";
 
 function TodosList() {
-    const [{ todoInput, todos, isEdit }, dispatch] = useContext(TodoContext);
-
-    useEffect(() => {
-        fetch("http://localhost:3333/todos")
-            .then((res) => {
-                if (!res.ok) return res.statusText;
-                return res.json();
-            })
-            .then((data) => dispatch(getTodosList(data)))
-            .catch((err) => console.log(err));
-    }, []);
-
-    const handleEdit = (id, content) => {
-        dispatch(setTodoInput({ id, content }));
-        // Làm sao để truyền id cho bên thằng reducer ???
-    };
-
-    const handleDelete = (id) => {
-        dispatch(deleteTodoItem(id));
-    };
-
-    const handleToggle = (id) => {
-        dispatch(toggleTodoItem(id));
-    };
+    const { state, handleDelete, handleEdit, handleToggle } = useTodo();
 
     return (
         <ul>
-            {todos.map((todo) => {
+            {state.todos.map((todo) => {
                 const { id, content, completed } = todo;
                 return (
                     <li key={id}>
                         <span
                             className={completed ? "checked" : ""}
-                            onClick={() => handleToggle(id)}
+                            onClick={() => handleToggle(id, completed)}
                         >
                             {content}
                         </span>

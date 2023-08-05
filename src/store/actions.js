@@ -1,37 +1,6 @@
-import { GET_TODOS_LIST, SET_TODO_INPUT, ADD_TODO_ITEM, DELETE_TODO_ITEM, TOGGLE_TODO_ITEM } from "./actionType";
-
-
-export const getTodosList = (data) => {
-    return {
-        type: GET_TODOS_LIST,
-        payload: data,
-    }
-};
-
-export const setTodoInput = (inputValue) => {
-    return {
-        type: SET_TODO_INPUT,
-        payload: inputValue,
-    }
-}
-
-export const addTodoItem = (inputValue) => {
-    return {
-        type: ADD_TODO_ITEM,
-        payload: inputValue,
-    }
-}
-
-export const deleteTodoItem = (id) => {
-    return {
-        type: DELETE_TODO_ITEM,
-        payload: id,
-    }
-}
-
-export const toggleTodoItem = (id) => {
-    return {
-        type: TOGGLE_TODO_ITEM,
-        payload: id
-    }
-}
+export const GET_TODO_LIST = "GET_TODO_LIST";
+export const SET_TODO_INPUT = "SET_TODO_INPUT";
+export const CREATE_TODO_ITEM = "ADD_TODO_ITEM";
+export const DELETE_TODO_ITEM = "DELETE_TODO_ITEM";
+export const TOGGLE_TODO_ITEM = "TOGGLE_TODO_ITEM";
+export const UPDATE_TODO_ITEM = "UPDATE_TODO_ITEM";

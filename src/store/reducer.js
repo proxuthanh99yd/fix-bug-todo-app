@@ -1,10 +1,11 @@
 import {
-	ADD_TODO_ITEM,
+	CREATE_TODO_ITEM,
 	DELETE_TODO_ITEM,
-	GET_TODOS_LIST,
+	GET_TODO_LIST,
 	SET_TODO_INPUT,
 	TOGGLE_TODO_ITEM,
-} from "./actionType";
+	UPDATE_TODO_ITEM,
+} from "./actions";
 
 export const initialState = {
 	todos: [],
@@ -14,17 +15,19 @@ export const initialState = {
 
 export const reducer = (state, action) => {
 	switch (action.type) {
-		case GET_TODOS_LIST:
+		case GET_TODO_LIST:
 			return {
 				...state,
 				todos: [...action.payload],
 			};
 
-		case SET_TODO_INPUT:
+		case SET_TODO_INPUT: {
 			if (action.payload.id) {
 				return {
 					...state,
-					isEdit: action.payload.id,
+					isEdit: {
+						id: action.payload.id
+					},
 					todoInput: action.payload.content,
 				};
 			}
@@ -32,29 +35,33 @@ export const reducer = (state, action) => {
 				...state,
 				todoInput: action.payload,
 			};
+		}
 
-		case ADD_TODO_ITEM:
-			if (state.isEdit === false) {
+		case CREATE_TODO_ITEM: {
+			return {
+				...state,
+				todos: [
+					...state.todos,
+					action.payload.data,
+				],
+				todoInput: ""
+			};
+		}
 
-				return {
-					...state,
-					todos: [
-						...state.todos,
-						{
-							id: Date.now(),
-							content: action.payload,
-							completed: false,
-						},
-					],
-				};
-			} else {
-				console.log(state.isEdit, state.todoInput);
-
-				// Tại đây có cách nào lấy ID khi handleEdit ko nhỉ ? 
-				// c đang tắc đoạn này :(((
-				// hay phải tạo  1 Modal rồi đẩy thằng tođoEit lên xong mình update ???
+		case UPDATE_TODO_ITEM: {
+			console.log(action);
+			return {
+				...state,
+				isEdit: false,
+				todos: [...state.todos.map(todo => {
+					if (todo.id === action.payload.id) {
+						return { ...todo, content: action.payload.content }
+					}
+					return todo
+				})],
+				todoInput: ""
 			}
-			return { ...state, isEdit: false }
+		}
 
 		case DELETE_TODO_ITEM: {
 			const newTodos = state.todos.filter(
@@ -65,17 +72,19 @@ export const reducer = (state, action) => {
 				todos: newTodos,
 			};
 		}
-		case TOGGLE_TODO_ITEM:
+
+		case TOGGLE_TODO_ITEM: {
 			return {
 				...state,
 				todos: [
 					...state.todos.map((item) =>
-						item.id === action.payload
-							? { ...item, completed: !item.completed }
+						item.id === action.payload.id
+							? { ...item, completed: action.payload.completed }
 							: item
 					),
 				],
 			};
+		}
 
 		default:
 			return state;
